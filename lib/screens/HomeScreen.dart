@@ -406,57 +406,108 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Container searchBox() {
     return Container(
+
+      
         padding: EdgeInsets
+      
         .symmetric(horizontal: 15),
+      
         child: Column(
+      
           children: [
+      
             Container(
+      
               margin: EdgeInsets.only(
+      
                 top: 10
+      
               ),
+      
               decoration: BoxDecoration(
+      
                 color: Colors.white,
+      
                 borderRadius: BorderRadius.circular(20)
+      
               ),
+      
               child: TextField(
+      
                 onChanged: (value) => _runFilter(value),
+      
                 decoration: InputDecoration(
+      
                   contentPadding: EdgeInsets.all(10),
+      
                   prefixIcon: Icon(Icons.search_rounded),
+      
                   hintText: "Search",
+      
                   // prefixIconConstraints: BoxConstraints(
                   //   maxHeight: 30,
                   //   minWidth: 45
                   // ),
+      
                   border: InputBorder.none
+      
                 ),
       
               ),
+      
             )
+      
           ],
+      
         ),
+      
       );
   }
 
+
+
+
   AppBar appBar() {
+
     return AppBar(
+
       elevation: 0,
+
       backgroundColor: tdBgColor,
+
       centerTitle: true,
+      
       title: Row(
+
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
         children: [
+
           Icon(Icons.menu, color: tdBlack, size: 30,),
+
           Container(
+
             height: 40,
+
             width: 40,
+         
             child: ClipRRect(
+
               borderRadius: BorderRadius.circular(20),
+
               child: Image.asset('assets/images/pic.jpg',),
+
             ),
+
           )
+
         ],
+
       ),
+
     );
+
   }
+
+
 }
