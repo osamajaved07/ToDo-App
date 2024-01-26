@@ -2,10 +2,61 @@
 
 // import 'dart:ffi';
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import 'package:flutter/material.dart';
+
+
+
+
+
 import 'package:todos_app/constants/Colors.dart';
+
+
+
+
+
+
+
 import 'package:todos_app/model/todo.dart';
+
+
+
+
+
+
+
 import 'package:todos_app/widgets/todo_item.dart';
+
+
+
 
 class HomeScreen extends StatefulWidget {
    HomeScreen({super.key});
@@ -15,15 +66,27 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+
   final todosList = ToDo.todoList();
+  
   final _todoController = TextEditingController();
+  
+  
   List<ToDo> _foundToDo = [];
 @override
+  
+  
   void initState() {
     _foundToDo = todosList;
     super.initState();
+  
   }
+  
+  
   @override
+  
+  
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor:  Color.fromARGB(255, 222, 248, 254),
@@ -40,92 +103,27 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             searchBox(),
-            Expanded(
-              child: ListView(
-                padding: EdgeInsets.only(left: 8, right: 8),
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 50, bottom: 20, left: 8),
-              
-                    child: Text("All ToDos", style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.w500
-                    ),),
-                  ),
-        
-                  for(ToDo todoo in _foundToDo.reversed)
-                  ToDoItem(
-                    todo: todoo,
-                    onToDoChanged: _handleToDoChange,
-                    onDeleteItem: _deleteToDoItem,),
-                 
-                ],
-              ),
-            )
+
+
+            listView(),
+
+
           ],
         ),
+
       ),
+
+
       Align(
         alignment: Alignment.bottomCenter,
         child: Row(
           children: [
-            Expanded(
-              child: Container(
-              margin: EdgeInsets.only(
-                bottom: 20,
-                right: 20,
-                left: 20),
+            
+            addNewToDoTextField(),
 
-                padding: EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 5),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: const [BoxShadow(color: Colors.grey,
-                  offset: Offset(0.0, 0.0),
-                  blurRadius: 10.0,
-                  spreadRadius: 0.0,
-                  )],
 
-                  borderRadius: BorderRadius.circular(10)
-                ),
-                child: TextField(
-                  controller: _todoController,
-                  decoration: InputDecoration(
-                    hintText: "Add a new todo item.",
-                    border: InputBorder.none  
-                  ),
-                ),
-            )),
-            Container(
-              
-              margin: EdgeInsets.only(
-                bottom: 20,
-                right: 20,
-              ),
-              
+            addButton(),
 
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  shape:BeveledRectangleBorder(
-                    borderRadius: BorderRadius.circular(8)
-                  ),
-                  primary: tdBlue,
-                  minimumSize:Size(60, 60),
-
-                  elevation: 10
-                ),
-                onPressed: (){
-                  _addToDoItem(_todoController.text);
-                }, 
-                child: Text("+", 
-                  style: TextStyle(
-                    fontSize: 40,
-                    color: Colors.white
-                    
-
-              ),)),
-            )
           ],
           
         ),
@@ -136,9 +134,194 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+
+
+
+
+
+  Container addButton() {
+    return Container(
+            
+            margin: EdgeInsets.only(
+              bottom: 20,
+              right: 20,
+            ),
+            
+
+            child: ElevatedButton(
+
+              style: ElevatedButton
+
+              .styleFrom(
+
+                shape:BeveledRectangleBorder(
+
+                  borderRadius: BorderRadius.circular(8)
+                
+                ),
+                
+                primary: tdBlue,
+                
+                minimumSize:Size(60, 60),
+
+                elevation: 10
+              
+              ),
+              
+              onPressed: (){
+              
+                _addToDoItem(_todoController.text);
+              
+              }, 
+              
+              child: Text("+", 
+              
+                style: TextStyle(
+              
+              
+                  fontSize: 40,
+              
+                  color: Colors.white
+                  
+
+            ),
+            )
+            ),
+          );
+  }
+
+
+
+
+
+  Expanded addNewToDoTextField() {
+
+    return Expanded(
+           
+            child: Container(
+           
+            margin: EdgeInsets.only(
+           
+              bottom: 20,
+           
+              right: 20,
+           
+              left: 20),
+
+              padding: EdgeInsets.symmetric(
+           
+                horizontal: 20,
+           
+                vertical: 5),
+           
+              decoration: BoxDecoration(
+           
+                color: Colors.white,
+           
+                boxShadow: const [
+           
+                  BoxShadow(
+           
+                    color: Colors.grey,
+           
+                  offset: Offset(0.0, 0.0),
+           
+                  blurRadius: 10.0,
+           
+                  spreadRadius: 0.0,
+           
+                )
+           
+                ],
+
+           
+                borderRadius: BorderRadius.circular(10)
+           
+              ),
+           
+              child: TextField(
+           
+                controller: _todoController,
+           
+                decoration: InputDecoration(
+           
+                  hintText: "Add a new todo item.",
+           
+                  border: InputBorder.none  
+           
+                ),
+           
+              ),
+          )
+
+          
+          );
+  }
+
+  Expanded listView() {
+    
+    return Expanded(
+    
+            child: ListView(
+    
+              padding: EdgeInsets.only(
+    
+                left: 8, 
+    
+                right: 8),
+    
+              children: [
+    
+                Container(
+    
+                  margin: EdgeInsets.only(
+    
+                    top: 50, 
+    
+                    bottom: 20, 
+    
+                    left: 8
+    
+                    ),
+
+
+    
+                  child: Text("All ToDos", 
+    
+                  style: TextStyle(
+    
+                    fontSize: 30,
+                    fontWeight: FontWeight.w500
+    
+                  ),
+    
+                  ),
+                ),
+      
+                for(ToDo todoo in _foundToDo.reversed)
+
+                ToDoItem(
+    
+                  todo: todoo,
+    
+                  onToDoChanged: _handleToDoChange,
+    
+                  onDeleteItem: _deleteToDoItem,
+    
+                  ),
+               
+    
+              ],
+    
+            ),
+    
+          );
+  }
+
   void _handleToDoChange(ToDo todo) {
 
     setState(() {
+
       todo.isDone = !todo.isDone;
 
     });
@@ -147,8 +330,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
   void _deleteToDoItem (String id) {
+    
     setState(() {
-    todosList.removeWhere((item) => item.id == id);
+    
+    todosList.removeWhere(
+      (item) => item.id == id);
   
     });
     
@@ -157,26 +343,59 @@ class _HomeScreenState extends State<HomeScreen> {
   void _addToDoItem (String toDo) {
 
     setState(() {
-    todosList.add(ToDo(id:DateTime.now().millisecondsSinceEpoch.toString(), 
-    todoText: toDo));  
-    });
+    
+    todosList.add(
+    
+      ToDo(
+    
+        id:DateTime
+    
+        .now()
+    
+        .millisecondsSinceEpoch
+    
+        .toString(), 
+    
+    todoText: toDo)
+    
+    );  
+    
+    }
+    
+    );
+    
     _todoController.clear();
     
 
   }
 
   void _runFilter (String enteredKeyword) {
+    
     List <ToDo> results = [];
+    
     if(enteredKeyword.isEmpty) {
+    
       results = todosList;
 
     } else  {
-      results = todosList.where((item) => item.todoText!.toLowerCase().contains(enteredKeyword.toLowerCase())).toList();
+    
+      results = todosList
+      .where(
+        (item) => item.todoText!
+        .toLowerCase()
+        .contains(
+          enteredKeyword
+          .toLowerCase()))
+          .toList();
+    
     }
 
     setState(() {
+
       _foundToDo = results;
-    });
+    }
+    
+    );
 
   }
 
@@ -187,7 +406,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Container searchBox() {
     return Container(
-        padding: EdgeInsets.symmetric(horizontal: 15),
+        padding: EdgeInsets
+        .symmetric(horizontal: 15),
         child: Column(
           children: [
             Container(
